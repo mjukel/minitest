@@ -26,8 +26,8 @@ import com.typesafe.sbt.GitVersioning
 addCommandAlias("ci-all",  ";+clean ;+compile ;+test ;+package")
 addCommandAlias("release", ";+publishSigned ;sonatypeReleaseAll")
 
-ThisBuild / scalaVersion := "2.12.4"
-ThisBuild / crossScalaVersions := Seq("2.10.7", "2.11.12", "2.12.4", "2.13.0-M4")
+ThisBuild / scalaVersion := "2.12.6"
+ThisBuild / crossScalaVersions := Seq("2.10.7", "2.11.12", "2.12.6", "2.13.0-M4")
 
 def scalaPartV = Def setting (CrossVersion partialVersion scalaVersion.value)
 lazy val crossVersionSharedSources: Seq[Setting[_]] =
@@ -113,7 +113,7 @@ lazy val requiredMacroCompatDeps = Seq(
   libraryDependencies ++= Seq(
     "org.scala-lang" % "scala-reflect" % scalaVersion.value % Compile,
     "org.scala-lang" % "scala-compiler" % scalaVersion.value % Provided,
-    "org.typelevel" %%% "macro-compat" % "1.1.1",
+    "org.typelevel" %%% "macro-compat" % "1.1.2-KH",
   ),
   libraryDependencies ++= {
     if (needsScalaParadise.value) Seq(compilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.patch))
@@ -162,7 +162,7 @@ lazy val laws = crossProject(JVMPlatform, JSPlatform, NativePlatform).in(file("l
     sharedSettings,
     crossVersionSharedSources,
     libraryDependencies ++= Seq(
-      "org.scalacheck" %%% "scalacheck" % "1.14.0"
+      "org.scalacheck" %%% "scalacheck" % "1.14.1-SNAPSHOT-KH"
     )
   )
   .jsSettings(
